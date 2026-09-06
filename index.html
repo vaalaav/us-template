@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VAPEN — Precision Systems, US Operations</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil:wght@700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
+
+  :root{
+    --bg: #0C0D0E;
+    --bg-alt: #0F1112;
+    --panel: #17191B;
+    --line: #34383B;
+    --line-soft: #24272A;
+    --text: #ECE8DE;
+    --text-dim: #96988F;
+    --text-faint: #5C6059;
+    --accent: #FF5A1F;
+    --accent-dim: #9C3B14;
+    --olive: #8A9A5B;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 15px;
+    line-height: 1.65;
+    background-image:
+      linear-gradient(var(--line-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+    background-size: 48px 48px;
+    background-position: -1px -1px;
+  }
+
+  .stencil{
+    font-family: 'Big Shoulders Stencil', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+  }
+
+  a{ color: inherit; }
+
+  .wrap{
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* corner bracket panel */
+  .bracket{
+    position: relative;
+    border: 1px solid var(--line);
+    background: var(--panel);
+  }
+  .bracket::before, .bracket::after{
+    content: "";
+    position: absolute;
+    width: 14px; height: 14px;
+    border-color: var(--accent);
+    border-style: solid;
+    border-width: 0;
+  }
+  .bracket::before{ top: -1px; left: -1px; border-top-width: 2px; border-left-width: 2px; }
+  .bracket::after{ bottom: -1px; right: -1px; border-bottom-width: 2px; border-right-width: 2px; }
+
+  /* ---------- nav ---------- */
+  header{
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(12,13,14,0.88);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav{
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 28px;
+    max-width: 1040px; margin: 0 auto;
+  }
+  .mark{
+    font-family: 'Big Shoulders Stencil', sans-serif;
+    font-size: 22px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .mark-dot{
+    width: 8px; height: 8px;
+    background: var(--accent);
+    display: inline-block;
+  }
+  .navlinks{ display: flex; align-items: center; gap: 28px; font-size: 13px; }
+  .navlinks a{ text-decoration: none; color: var(--text-dim); transition: color .15s ease; }
+  .navlinks a:hover{ color: var(--text); }
+  .tag-us{
+    font-size: 11px; color: var(--olive);
+    border: 1px solid var(--line);
+    padding: 3px 8px;
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding: 90px 0 70px;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 40px;
+    align-items: center;
+  }
+  .status-line{
+    font-size: 12px; color: var(--olive);
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 22px;
+  }
+  .status-dot{
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--olive);
+    animation: blink 2.4s ease-in-out infinite;
+  }
+  @keyframes blink{ 0%,100%{ opacity: 1;} 50%{ opacity: 0.25; } }
+
+  h1.hero-title{
+    font-size: clamp(52px, 8vw, 96px);
+    line-height: 0.92;
+    margin: 0 0 20px;
+    color: var(--text);
+  }
+  h1.hero-title span{ color: var(--accent); }
+
+  .hero-sub{
+    font-size: 15.5px;
+    color: var(--text-dim);
+    max-width: 46ch;
+    margin: 0 0 30px;
+  }
+
+  .cta-row{ display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    padding: 13px 20px;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--text);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: border-color .15s ease, color .15s ease;
+  }
+  .btn-primary{ border-color: var(--accent); color: var(--accent); }
+  .btn-primary:hover{ background: var(--accent); color: #0C0D0E; }
+  .btn-ghost:hover{ border-color: var(--text-dim); }
+
+  /* reticle */
+  .reticle-box{ display: flex; justify-content: center; }
+  .reticle{ width: 100%; max-width: 300px; }
+  .sweep{
+    transform-origin: 150px 150px;
+    animation: sweep 5s linear infinite;
+  }
+  .blip{ animation: blip-pulse 2.4s ease-in-out infinite; }
+  @keyframes sweep{ from{ transform: rotate(0deg);} to{ transform: rotate(360deg);} }
+  @keyframes blip-pulse{ 0%,100%{ opacity: 0.15; } 50%{ opacity: 1; } }
+
+  @media (prefers-reduced-motion: reduce){
+    .sweep, .blip, .status-dot{ animation: none !important; }
+  }
+
+  /* ---------- section heading ---------- */
+  .section{ padding: 64px 0; border-top: 1px solid var(--line-soft); }
+  .section-head{
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 36px; gap: 20px; flex-wrap: wrap;
+  }
+  .section-title{
+    font-size: clamp(30px, 4vw, 44px);
+    margin: 0;
+    color: var(--text);
+  }
+  .section-note{ font-size: 12.5px; color: var(--text-faint); max-width: 30ch; text-align: right; }
+
+  /* ---------- manifest / services ---------- */
+  .manifest-item{
+    display: grid;
+    grid-template-columns: 100px 1fr 220px;
+    gap: 20px;
+    padding: 22px 0;
+    border-top: 1px solid var(--line-soft);
+    align-items: start;
+  }
+  .manifest-item:last-child{ border-bottom: 1px solid var(--line-soft); }
+  .sku{
+    font-size: 12px; color: var(--accent);
+    padding-top: 3px;
+  }
+  .m-title{
+    font-size: 18px; color: var(--text);
+    margin: 0 0 6px;
+    font-weight: 600;
+  }
+  .m-desc{ font-size: 13.5px; color: var(--text-dim); margin: 0; max-width: 52ch; }
+  .m-spec{ font-size: 11.5px; color: var(--text-faint); text-align: right; padding-top: 4px; }
+  .m-spec b{ color: var(--olive); font-weight: 500; }
+
+  /* ---------- deployment timeline ---------- */
+  .timeline{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--line-soft); }
+  .tl-step{ background: var(--bg); padding: 26px 22px; }
+  .tl-code{ font-size: 11px; color: var(--text-faint); margin-bottom: 10px; }
+  .tl-title{ font-size: 18px; margin: 0 0 10px; color: var(--text); }
+  .tl-desc{ font-size: 13px; color: var(--text-dim); margin: 0; }
+
+  /* ---------- contact / crate label ---------- */
+  .crate{
+    padding: 40px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 30px;
+    align-items: center;
+  }
+  .crate-label{ font-size: 11px; color: var(--text-faint); margin-bottom: 8px; letter-spacing: 0.03em; }
+  .crate-title{ font-size: clamp(26px, 4vw, 38px); margin: 0 0 14px; color: var(--text); }
+  .crate-desc{ font-size: 13.5px; color: var(--text-dim); max-width: 48ch; margin: 0 0 20px; }
+  .stamp{
+    border: 2px solid var(--accent-dim);
+    color: var(--accent);
+    font-size: 12px;
+    padding: 10px 16px;
+    transform: rotate(-2deg);
+    white-space: nowrap;
+    justify-self: end;
+  }
+
+  footer{
+    border-top: 1px solid var(--line-soft);
+    padding: 26px 0 40px;
+    font-size: 11.5px;
+    color: var(--text-faint);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+  }
+
+  @media (max-width: 760px){
+    .hero{ grid-template-columns: 1fr; padding-top: 60px; }
+    .reticle-box{ order: -1; max-width: 220px; margin: 0 auto 20px; }
+    .manifest-item{ grid-template-columns: 1fr; gap: 8px; }
+    .m-spec{ text-align: left; }
+    .timeline{ grid-template-columns: 1fr; }
+    .crate{ grid-template-columns: 1fr; }
+    .stamp{ justify-self: start; }
+    .section-note{ text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="mark"><span class="mark-dot"></span>VAPEN</div>
+    <div class="navlinks">
+      <a href="#manifest">Services</a>
+      <a href="#deployment">Deployment</a>
+      <a href="#contact">Contact</a>
+      <span class="tag-us">US OPS</span>
+    </div>
+  </nav>
+</header>
+
+<section class="wrap hero">
+  <div>
+    <div class="status-line">
+      <span class="status-dot"></span>
+      STATUS: OPERATIONAL — US-EAST / US-WEST
+    </div>
+    <h1 class="hero-title stencil">Built to<br><span>spec.</span><br>Deployed.</h1>
+    <p class="hero-sub">Data processing, API development, automation, and server infrastructure — engineered to a brief and shipped to production. Now taking on US-based work.</p>
+    <div class="cta-row">
+      <a href="#contact" class="btn btn-primary">Request manifest</a>
+      <a href="#manifest" class="btn btn-ghost">View services</a>
+    </div>
+  </div>
+  <div class="reticle-box">
+    <svg class="reticle" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="150" cy="150" r="120" fill="none" stroke="#34383B" stroke-width="1"/>
+      <circle cx="150" cy="150" r="80" fill="none" stroke="#34383B" stroke-width="1"/>
+      <circle cx="150" cy="150" r="40" fill="none" stroke="#34383B" stroke-width="1"/>
+      <line x1="150" y1="10" x2="150" y2="290" stroke="#24272A" stroke-width="1"/>
+      <line x1="10" y1="150" x2="290" y2="150" stroke="#24272A" stroke-width="1"/>
+      <g class="sweep">
+        <path d="M150 150 L150 30 A120 120 0 0 1 254 90 Z" fill="#FF5A1F" opacity="0.08"/>
+        <line x1="150" y1="150" x2="150" y2="30" stroke="#FF5A1F" stroke-width="1.5"/>
+      </g>
+      <circle class="blip" cx="205" cy="95" r="4" fill="#FF5A1F"/>
+      <circle cx="150" cy="150" r="3" fill="#ECE8DE"/>
+    </svg>
+  </div>
+</section>
+
+<section class="wrap section" id="manifest">
+  <div class="section-head">
+    <h2 class="section-title stencil">Manifest</h2>
+    <p class="section-note">Four systems, issued on request. Scoped per engagement.</p>
+  </div>
+
+  <div class="manifest-item">
+    <div class="sku">SVC—DP</div>
+    <div>
+      <h3 class="m-title">Data processing</h3>
+      <p class="m-desc">Extraction, cleaning, and transformation for datasets that have outgrown a spreadsheet — built as repeatable pipelines, not one-off scripts.</p>
+    </div>
+    <div class="m-spec">SCALE: <b>large datasets</b><br>OUTPUT: structured / queryable</div>
+  </div>
+
+  <div class="manifest-item">
+    <div class="sku">SVC—API</div>
+    <div>
+      <h3 class="m-title">API development</h3>
+      <p class="m-desc">REST and webhook APIs designed around how your product actually gets used, plus integration work against third-party services.</p>
+    </div>
+    <div class="m-spec">TYPE: <b>REST / webhook</b><br>DELIVERY: docs included</div>
+  </div>
+
+  <div class="manifest-item">
+    <div class="sku">SVC—AUT</div>
+    <div>
+      <h3 class="m-title">Automation & scripting</h3>
+      <p class="m-desc">Scheduled and event-driven scripts that take repetitive manual work off your plate — and stay running without babysitting.</p>
+    </div>
+    <div class="m-spec">RUNTIME: <b>scheduled / triggered</b><br>MONITORING: on request</div>
+  </div>
+
+  <div class="manifest-item">
+    <div class="sku">SVC—INF</div>
+    <div>
+      <h3 class="m-title">Server infrastructure</h3>
+      <p class="m-desc">Provisioning, hardening, and ongoing maintenance of Ubuntu VPS instances — from a bare box to a deployed, monitored service.</p>
+    </div>
+    <div class="m-spec">PLATFORM: <b>Ubuntu VPS</b><br>ACCESS: full handoff</div>
+  </div>
+</section>
+
+<section class="wrap section" id="deployment">
+  <div class="section-head">
+    <h2 class="section-title stencil">Deployment</h2>
+    <p class="section-note">How an engagement runs, start to handoff.</p>
+  </div>
+  <div class="timeline bracket">
+    <div class="tl-step">
+      <div class="tl-code">CHECKPOINT / INTAKE</div>
+      <h3 class="tl-title">Scope the brief</h3>
+      <p class="tl-desc">You describe the problem and constraints. Comes back as a fixed scope and timeline before anything is built.</p>
+    </div>
+    <div class="tl-step">
+      <div class="tl-code">CHECKPOINT / BUILD</div>
+      <h3 class="tl-title">Build against spec</h3>
+      <p class="tl-desc">Work happens in the open — progress and decisions are visible as they happen, not delivered as a surprise at the end.</p>
+    </div>
+    <div class="tl-step">
+      <div class="tl-code">CHECKPOINT / HANDOFF</div>
+      <h3 class="tl-title">Ship and hand off</h3>
+      <p class="tl-desc">Deployed, documented, and handed over with access and instructions — not held hostage on someone else's server.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap section" id="contact">
+  <div class="crate bracket">
+    <div>
+      <div class="crate-label">SHIP TO / YOUR OPERATION</div>
+      <h2 class="crate-title stencil">Send the brief.</h2>
+      <p class="crate-desc">Tell me what you're building and what's not working yet. Rates quoted in USD, scoped per engagement — no retainers required to get a quote.</p>
+      <a href="mailto:contact@vapen.online" class="btn btn-primary">contact@vapen.online</a>
+    </div>
+    <div class="stamp stencil">CLEARED<br>FOR WORK</div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <div>VAPEN — precision systems / US operations</div>
+  <div>vapen.online</div>
+</footer>
+
+</body>
+</html>
